@@ -1,5 +1,7 @@
 import { combineReducers } from "redux"
 import { authReducer } from "./auth.reducers"
+import { categoriesReducer } from "./categories.reducers"
+import { coachesReducer } from "./coaches.reducers"
 import { favoritesReducer } from "./favorites.reducers"
 import { recentReducer } from "./recent.reducers"
 import { themeReducer } from "./theme.reducers"
@@ -12,5 +14,7 @@ export const rootReducer = combineReducers({
     favorites: favoritesReducer,
     recent: recentReducer,
     user: userReducer,
+    coaches: coachesReducer,
+    categories: categoriesReducer,
     auth: authReducer
 })

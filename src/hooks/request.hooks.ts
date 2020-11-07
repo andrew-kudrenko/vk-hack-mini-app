@@ -1,8 +1,8 @@
 import { useAuth } from "./auth.hooks"
 
-const apiUrl: string = 'http://localhost:8000'
+// const apiUrl: string = 'http://localhost:8000'
 
-// const apiUrl: string = 'http://195.2.73.174'
+const apiUrl: string = 'http://195.2.73.174'
 
 type HTTPMethodType = 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE' | 'OPTIONS'
 

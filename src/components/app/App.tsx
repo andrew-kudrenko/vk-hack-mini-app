@@ -15,6 +15,7 @@ import { RegisterPanel } from '../../panels/auth/RegisterPanel'
 import { useAuth } from '../../hooks/auth.hooks'
 import { useAuthRequest } from '../../hooks/request.hooks'
 import bridge from '@vkontakte/vk-bridge'
+import { fetchCategories, setCategoriesFetchingError } from '../../redux/actions/categories.actions'
 
 export const App: React.FC = () => {
   const dispatch = useDispatch()
@@ -22,6 +23,16 @@ export const App: React.FC = () => {
   const { requestJSON } = useAuthRequest()
   const { activePanel, activeView, jumpToPanel: jumpTo } = useNav()
   const { authorized } = useAuth()
+
+  const onStoryChange = (e: React.SyntheticEvent<HTMLElement>) => {
+    const value = e.currentTarget.dataset['story']
+
+    if (value) {
+      console.log(value)
+      dispatch(setActiveView(value))
+    }
+  }
+
 
   useEffect(() => {
     if (authorized) {
@@ -34,24 +45,17 @@ export const App: React.FC = () => {
 
   useEffect(() => {
     requestJSON('/categories')
-      .then(console.log)
-      .catch(console.log)
+      .then(data => {
+        dispatch(fetchCategories(data))
+      })
+      .catch((e) => {
+        dispatch(setCategoriesFetchingError(e))
+      })
   }, [authorized])
 
   useEffect(() => {
     bridge.send('VKWebAppInit', {})
-
-    // return bridge.unsubscribe(console.log)
   }, [authorized])
-
-  const onStoryChange = (e: React.SyntheticEvent<HTMLElement>) => {
-    const value = e.currentTarget.dataset['story']
-
-    if (value) {
-      console.log(value)
-      dispatch(setActiveView(value))
-    }
-  }
 
   return (
     <Epic

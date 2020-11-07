@@ -1,5 +1,5 @@
 import { Action } from "redux"
-import { ICoach, IUser, UserRoleEnum } from "./entities.interfaces"
+import { ICategory, ICoach, IUser, UserRoleEnum } from "./entities.interfaces"
 import { PanelsIDType, IViewPanelMap, ViewsIDType } from "./navigation.interfaces"
 
 export type ComponentIDType = string
@@ -57,12 +57,17 @@ export interface ICoachesState extends IStatePartial {
     list: Array<ICoach>
 }
 
+export interface ICategoriesState extends IStatePartial {
+    list: Array<ICategory>
+}
+
 export interface IState {
     auth: IAuthState
     views: IViewsState
     theme: IThemeState
     user: IUserState
     favorites: IFavoritesState
-    recent: IRecentState,
+    recent: IRecentState
     coaches: ICoachesState
+    categories: ICategoriesState
 }
