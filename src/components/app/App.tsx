@@ -4,20 +4,31 @@ import { Epic, View, Panel } from '@vkontakte/vkui'
 import { connect, useDispatch } from 'react-redux'
 import { setActiveView } from '../../redux/actions/views.actions'
 import { Tabbar } from '../navigation/Tabbar'
-import { CoachListPanel } from '../../panels/CoachListPanel'
-import { RecentPanel } from '../../panels/RecentPanel'
-import { FavoritesPanel } from '../../panels/FavoritesPanel'
-import { ProfilePanel } from '../../panels/ProfilePanel'
-import { SubjectListPanel } from '../../panels/SubjectListPanel'
+import { CoachListPanel } from '../../panels/search/CoachListPanel'
+import { RecentPanel } from '../../panels/recent/RecentPanel'
+import { FavoritesPanel } from '../../panels/favorites/FavoritesPanel'
+import { ProfilePanel } from '../../panels/profile/ProfilePanel'
+import { SubjectListPanel } from '../../panels/search/SubjectListPanel'
 import { useNav } from '../../hooks/nav.hooks'
-import { LoginPanel } from '../../panels/LoginPanel'
-import { RegisterPanel } from '../../panels/RegisterPanel'
+import { LoginPanel } from '../../panels/auth/LoginPanel'
+import { RegisterPanel } from '../../panels/auth/RegisterPanel'
 import { useAuth } from '../../hooks/auth.hooks'
 
 export const App: React.FC = () => {
   const dispatch = useDispatch()
-  const { activePanel, activeView, jumpTo } = useNav()
 
+  const { activePanel, activeView, jumpToPanel: jumpTo } = useNav()
+  const { authorized } = useAuth()
+  
+  useEffect(() => {
+    if (authorized) {
+      jumpTo('search-view', 'subject-list-panel')
+    } else {
+      jumpTo('auth-view', 'login-panel')
+    }
+    
+  }, [authorized])
+  
   const onStoryChange = (e: React.SyntheticEvent<HTMLElement>) => {
     const value = e.currentTarget.dataset['story']
 
@@ -26,19 +37,7 @@ export const App: React.FC = () => {
       dispatch(setActiveView(value))
     }
   }
-
-  const { authorized } = useAuth()
-
-
-  useEffect(() => {
-    if (authorized) {
-      jumpTo('search-view', 'subject-list-panel')
-    } else {
-      jumpTo('auth-view', 'login-panel')
-    }
-
-  }, [authorized])
-
+  
   return (
     <Epic
       activeStory={activeView}

@@ -15,10 +15,14 @@ export function useNav() {
         }
     }
 
-    function jumpTo(view: ViewsIDType, panel: PanelsIDType) {
-        dispatch(setActiveView(view))
+    function jumpToPanel(view: ViewsIDType, panel: PanelsIDType) {
+        jumpToView(view)
         dispatch(setActivePanel(ViewPanelMap.create(view, panel)))
     }
 
-    return { activeView, activePanel, jumpTo }
+    function jumpToView(view: ViewsIDType) {
+        dispatch(setActiveView(view))
+    }
+
+    return { activeView, activePanel, jumpToPanel, jumpToView }
 }

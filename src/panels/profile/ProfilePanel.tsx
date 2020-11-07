@@ -1,6 +1,6 @@
 import React from 'react'
 import { Cell, FormLayout, Group, Header, PanelHeader, Switch, File } from '@vkontakte/vkui'
-import { useTheme } from '../hooks/theme.hooks'
+import { useTheme } from '../../hooks/theme.hooks'
 import { Icon24Camera } from '@vkontakte/icons'
 
 export const ProfilePanel: React.FC = () => {

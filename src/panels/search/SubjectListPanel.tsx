@@ -1,7 +1,7 @@
 import React from 'react'
 import { PanelHeader, Search, List, Cell, Group, Header } from '@vkontakte/vkui'
 import { useDispatch } from 'react-redux'
-import { setActivePanel } from '../redux/actions/views.actions'
+import { setActivePanel } from '../../redux/actions/views.actions'
 
 export const SubjectListPanel: React.FC = () => {
     const dispatch = useDispatch()

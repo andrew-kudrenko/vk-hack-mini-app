@@ -4,6 +4,8 @@ import { PanelsIDType, IViewPanelMap, ViewsIDType } from "./navigation.interface
 
 export type ComponentIDType = string
 
+export type ErrorType = string | null
+
 export type ThemeType = 'bright_light' | 'space_gray'
 
 export interface IAction<T = any> extends Action {
@@ -28,7 +30,7 @@ export interface IUserState {
     user: IUser | null
 }
 
-export interface IFavoritesState {
+export interface IFavoritesState extends IStatePartial {
     list: Array<ICoach>
 }
 
@@ -47,10 +49,15 @@ export interface ICreateLoginActionParams {
     token: string
 }
 
+export interface IRecentState extends IStatePartial {
+    list: Array<ICoach>
+}
+
 export interface IState {
     auth: IAuthState
     views: IViewsState
     theme: IThemeState
     user: IUserState
     favorites: IFavoritesState
+    recent: IRecentState
 }

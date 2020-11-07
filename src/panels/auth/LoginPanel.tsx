@@ -1,10 +1,10 @@
 import React, { ChangeEvent, useState } from 'react'
 import { Button, FormLayout, FormLayoutGroup, Input, PanelHeader, Text } from '@vkontakte/vkui'
-import { createSetLoginLoadingAction, createSetLoginErrorAction } from '../redux/actions/auth.actions'
+import { createSetLoginLoadingAction, createSetLoginErrorAction } from '../../redux/actions/auth.actions'
 import { useDispatch } from 'react-redux'
-import { request } from '../helpers/request.helpers'
-import { useAuth } from '../hooks/auth.hooks'
-import { useNav } from '../hooks/nav.hooks'
+import { useAuth } from '../../hooks/auth.hooks'
+import { useNav } from '../../hooks/nav.hooks'
+import { useRequest } from '../../hooks/request.hooks'
 
 export const LoginPanel: React.FC = () => {
     const [username, setUsername] = useState('')
@@ -13,19 +13,19 @@ export const LoginPanel: React.FC = () => {
     const dispatch = useDispatch()
 
     const { login } = useAuth()
-    const { jumpTo } = useNav()
+    const { jumpToPanel } = useNav()
+    const { requestFormData } = useRequest()
 
     const onChangeHandler = (callback: (value: string) => void) => (event: ChangeEvent<HTMLInputElement>) => {
         callback(event.target.value)
     }
 
-    const jumpToRegister = () => jumpTo('auth-view', 'register-panel')
+    const jumpToRegister = () => jumpToPanel('auth-view', 'register-panel')
 
     const submitHandler = async () => {
         try {
           dispatch(createSetLoginLoadingAction(true))
-          const response = await request('/auth/jwt/login', 'POST', `username=${username}&password=${password}`, 'form-data')
-          console.log(response)
+          const response = await requestFormData('/auth/jwt/login', 'POST', `username=${username}&password=${password}`)
           const token = response['access_token']
           if (token) {
             login({ username, token })

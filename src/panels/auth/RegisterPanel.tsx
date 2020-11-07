@@ -1,16 +1,17 @@
 import React, { ChangeEvent, useState } from 'react'
 import { Input, PanelHeader, FormLayoutGroup, Div, Group, Header, Button, Text } from '@vkontakte/vkui'
 import { useDispatch } from 'react-redux'
-import { createSetLoginLoadingAction, createSetLoginErrorAction } from '../redux/actions/auth.actions'
-import { request } from '../helpers/request.helpers'
-import { useNav } from '../hooks/nav.hooks'
+import { createSetLoginLoadingAction, createSetLoginErrorAction } from '../../redux/actions/auth.actions'
+import { useNav } from '../../hooks/nav.hooks'
+import { useRequest } from '../../hooks/request.hooks'
 
 export const RegisterPanel: React.FC = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
+    const { requestJSON } = useRequest()
     const dispatch = useDispatch()
-    const { jumpTo } = useNav()
+    const { jumpToPanel: jumpTo } = useNav()
 
     const onChangeHandler = (callback: (value: string) => void) => (event: ChangeEvent<HTMLInputElement>) => {
         callback(event.target.value)
@@ -21,7 +22,7 @@ export const RegisterPanel: React.FC = () => {
     const submitHandler = async () => {
         try {
             dispatch(createSetLoginLoadingAction(true))
-            await request('/auth/register', 'POST', JSON.stringify({ email, password }), 'json')
+            await requestJSON('/auth/register', 'POST', JSON.stringify({ email, password }))
         } catch (e) {
             dispatch(createSetLoginErrorAction(String(e)))
         } finally {
