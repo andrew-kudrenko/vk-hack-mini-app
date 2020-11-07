@@ -41,7 +41,7 @@ export const CoachCard: React.FC = () =>
         </div>
 
         <img
-            src="https://yobte.ru/uploads/posts/2019-11/seksualnye-uchilki-37-foto-14.jpg"
+            src="https://avatars.mds.yandex.net/get-zen_doc/1860870/pub_5dfe3dc6aad43600aefe80e5_5dfe43461e8e3f00b0e55c67/scale_1200"
             alt=""
             // height="250px"
             width="100%"

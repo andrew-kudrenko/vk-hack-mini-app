@@ -22,5 +22,5 @@ export function useTheme() {
         document.body.setAttribute('scheme', t)
     }
 
-    return { theme: type, toggle, isDark, apply }
+    return { theme: type, toggle, isDark }
 }

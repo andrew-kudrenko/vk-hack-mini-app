@@ -6,7 +6,8 @@ const initialState: IViewsState = {
     'favorites-view': 'favorites-panel',
     'recent-view': 'recent-panel',
     'search-view': 'subject-list-panel',
-    activeView: 'profile-view'
+    'auth-view': 'login-panel',
+    activeView: 'auth-view'
 }
 
 export const viewsReducer = (state: IViewsState = initialState, { type, payload }: IAction): IViewsState => {
