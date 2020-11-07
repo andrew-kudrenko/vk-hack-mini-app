@@ -53,11 +53,16 @@ export interface IRecentState extends IStatePartial {
     list: Array<ICoach>
 }
 
+export interface ICoachesState extends IStatePartial {
+    list: Array<ICoach>
+}
+
 export interface IState {
     auth: IAuthState
     views: IViewsState
     theme: IThemeState
     user: IUserState
     favorites: IFavoritesState
-    recent: IRecentState
+    recent: IRecentState,
+    coaches: ICoachesState
 }

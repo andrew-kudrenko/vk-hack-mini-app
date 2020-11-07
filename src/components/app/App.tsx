@@ -13,22 +13,37 @@ import { useNav } from '../../hooks/nav.hooks'
 import { LoginPanel } from '../../panels/auth/LoginPanel'
 import { RegisterPanel } from '../../panels/auth/RegisterPanel'
 import { useAuth } from '../../hooks/auth.hooks'
+import { useAuthRequest } from '../../hooks/request.hooks'
+import bridge from '@vkontakte/vk-bridge'
 
 export const App: React.FC = () => {
   const dispatch = useDispatch()
 
+  const { requestJSON } = useAuthRequest()
   const { activePanel, activeView, jumpToPanel: jumpTo } = useNav()
   const { authorized } = useAuth()
-  
+
   useEffect(() => {
     if (authorized) {
       jumpTo('search-view', 'subject-list-panel')
     } else {
       jumpTo('auth-view', 'login-panel')
     }
-    
+
   }, [authorized])
-  
+
+  useEffect(() => {
+    requestJSON('/categories')
+      .then(console.log)
+      .catch(console.log)
+  }, [authorized])
+
+  useEffect(() => {
+    bridge.send('VKWebAppInit', {})
+
+    // return bridge.unsubscribe(console.log)
+  }, [authorized])
+
   const onStoryChange = (e: React.SyntheticEvent<HTMLElement>) => {
     const value = e.currentTarget.dataset['story']
 
@@ -37,7 +52,7 @@ export const App: React.FC = () => {
       dispatch(setActiveView(value))
     }
   }
-  
+
   return (
     <Epic
       activeStory={activeView}

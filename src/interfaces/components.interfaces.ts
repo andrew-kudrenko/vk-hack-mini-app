@@ -9,3 +9,7 @@ export interface IFavoritesSnackbarProps {
     onClose: () => void
     onActionClick: () => void
 }
+
+export interface ISnackbarProps {
+    onClose: () => void
+}

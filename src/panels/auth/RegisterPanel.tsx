@@ -1,13 +1,17 @@
 import React, { ChangeEvent, useState } from 'react'
-import { Input, PanelHeader, FormLayoutGroup, Div, Group, Header, Button, Text } from '@vkontakte/vkui'
+import { Input, PanelHeader, FormLayoutGroup, Button, FormLayout } from '@vkontakte/vkui'
 import { useDispatch } from 'react-redux'
 import { createSetLoginLoadingAction, createSetLoginErrorAction } from '../../redux/actions/auth.actions'
 import { useNav } from '../../hooks/nav.hooks'
 import { useRequest } from '../../hooks/request.hooks'
+import { RegisterSnackbar } from '../../components/auth/RegisterSnackbar'
+import { ErrorSnackbar } from '../../components/auth/ErrorSnackbar'
 
 export const RegisterPanel: React.FC = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [passwordRepeat, setPasswordRepeat] = useState('')
+    const [snack, setSnack] = useState<React.ReactNode | null>(null)
 
     const { requestJSON } = useRequest()
     const dispatch = useDispatch()
@@ -22,18 +26,27 @@ export const RegisterPanel: React.FC = () => {
     const submitHandler = async () => {
         try {
             dispatch(createSetLoginLoadingAction(true))
-            await requestJSON('/auth/register', 'POST', JSON.stringify({ email, password }))
+            const response = await requestJSON('/auth/register', 'POST', JSON.stringify({ email, password }))
+            
+            if (response.detail) {
+                throw new Error('Ошибка при регистрации')
+            }
+
+            setSnack(<RegisterSnackbar onClose={setSnack.bind(null, null)} />)
+
+            setTimeout(jumpToLogin, 2000)
         } catch (e) {
             dispatch(createSetLoginErrorAction(String(e)))
+            setSnack(<ErrorSnackbar onClose={setSnack.bind(null, null)} />)
         } finally {
             dispatch(createSetLoginLoadingAction(false))
         }
     }
 
     return (
-        <Div>
+        <>
             <PanelHeader>Регистрация</PanelHeader>
-            <Group header={<Header>Давайте знакомиться!</Header>}>
+            <FormLayout>
                 <FormLayoutGroup>
                     <Input
                         type="email"
@@ -47,17 +60,30 @@ export const RegisterPanel: React.FC = () => {
                         value={password}
                         onChange={onChangeHandler(setPassword)}
                     />
+                    <Input
+                        type="password"
+                        placeholder="Повторите пароль"
+                        value={passwordRepeat}
+                        onChange={onChangeHandler(setPasswordRepeat)}
+                    />
                 </FormLayoutGroup>
-            </Group>
-            <Text
-                weight="medium"
-                onClick={jumpToLogin}
-            >
-                Уже есть аккаунт? Войти
-            </Text>
-            <Button onClick={submitHandler}>
-                Зарегистрироваться
-            </Button>
-        </Div>
+                <Button 
+                    size="xl" 
+                    mode="commerce" 
+                    onClick={submitHandler}
+                    disabled={!email || !password.length || password !== passwordRepeat}
+                >
+                    Зарегистрироваться
+                </Button>
+                <Button 
+                    size="xl"
+                    mode="outline" 
+                    onClick={jumpToLogin}
+                >
+                    Войти
+                </Button>
+            </FormLayout>
+            {snack}
+        </>
     )
 }

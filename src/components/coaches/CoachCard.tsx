@@ -4,7 +4,7 @@ import { Icon28CoinsOutline, Icon28FavoriteOutline, Icon28LocationOutline, Icon2
 
 export const CoachCard: React.FC = () =>
     <Card size="l" mode="outline" style={{ margin: '1rem', marginTop: 0, padding: '1rem' }}>
-        <Title weight="medium" level="2">Samantha</Title>
+        <Title weight="medium" level="2">Имя Фамилия Отчество</Title>
         <Text weight="regular" style={{ margin: '.5rem 0' }}>
             I'm a well coach. I know math and computer science. I'm best of the best
         </Text>
