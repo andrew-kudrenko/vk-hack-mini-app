@@ -3,6 +3,8 @@ import { PanelsIDType, IViewPanelMap, ViewsIDType } from "./navigation.interface
 
 export type ComponentIDType = string
 
+export type ThemeType = 'bright_light' | 'space_gray'
+
 export interface IAction<T = any> extends Action {
     payload?: T
 }
@@ -15,6 +17,11 @@ export interface IViewsState extends IViewPanelMap {
     activeView: ViewsIDType
 }
 
+export interface IThemeState {
+    type: ThemeType
+}
+
 export interface IState {
     views: IViewsState
+    theme: IThemeState
 }
