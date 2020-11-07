@@ -1,0 +1,2 @@
+export const SET_ACTIVE_VIEW = 'SET_ACTIVE_VIEW'
+export const SET_ACTIVE_PANEL = 'SET_ACTIVE_PANEL'
