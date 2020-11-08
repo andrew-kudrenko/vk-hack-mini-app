@@ -6,7 +6,7 @@ import { IFavoritesSnackbarProps } from '../../interfaces/components.interfaces'
 export const FavoritesSnackbar: React.FC<IFavoritesSnackbarProps> = ({ onActionClick, onClose }) =>
     <Snackbar
         onClose={onClose}
-        action="Посмотреть список закладок"
+        action="Мои закладки"
         onActionClick={onActionClick}
         before={
             <Avatar 

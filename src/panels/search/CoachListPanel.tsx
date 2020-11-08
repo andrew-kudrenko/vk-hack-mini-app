@@ -1,26 +1,48 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { PanelHeader, PanelHeaderBack, Search } from '@vkontakte/vkui'
 import { CoachCard } from '../../components/coaches/CoachCard'
 import { useDispatch } from 'react-redux'
 import { setActivePanel } from '../../redux/actions/views.actions'
 import { IViewPanelMap, ViewPanelMap } from '../../interfaces/navigation.interfaces'
+import { useNav } from '../../hooks/nav.hooks'
+import { FavoritesSnackbar } from '../../components/favorites/FavoritesSnackbar'
 
 export const CoachListPanel: React.FC = () => {
-    const dispatch = useDispatch()
+    const [snack, setSnack] = useState<React.ReactNode | null>(null)
+    const { jumpToPanel } = useNav()
+
 
     return (
         <>
             <PanelHeader
                 left={<PanelHeaderBack />}
-                onClick={dispatch.bind(null, setActivePanel(ViewPanelMap.create('search-view', 'subject-list-panel')))}
+                onClick={() => jumpToPanel('search-view', 'subject-list-panel')}
             >
                 Найти репетитора
             </PanelHeader>
             <Search />
-            <CoachCard />
-            <CoachCard />
-            <CoachCard />
-            <CoachCard />
+            <CoachCard 
+                onAddFavorite={setSnack.bind(
+                    null,
+                    <FavoritesSnackbar onActionClick={() => {}} onClose={setSnack.bind(null, null)} />, 
+                    ''
+                )} 
+            />
+            <CoachCard 
+                onAddFavorite={setSnack.bind(
+                    null,
+                    <FavoritesSnackbar onActionClick={() => {}} onClose={setSnack.bind(null, null)} />, 
+                    ''
+                )} 
+            />
+            <CoachCard 
+                onAddFavorite={setSnack.bind(
+                    null,
+                    <FavoritesSnackbar onActionClick={() => {}} onClose={setSnack.bind(null, null)} />, 
+                    ''
+                )} 
+            />
+            {snack}
         </>
     )
 }

@@ -1,3 +1,4 @@
+import { EntityIDType } from "./entities.interfaces";
 import { ComponentIDType } from "./redux.interfaces"
 
 export interface ITabbarProps {
@@ -12,4 +13,8 @@ export interface IFavoritesSnackbarProps {
 
 export interface ISnackbarProps {
     onClose: () => void
+}
+
+export interface ICoachCardProps {
+    onAddFavorite: (() => Promise<void>) | (() => void)
 }
