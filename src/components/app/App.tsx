@@ -28,7 +28,6 @@ export const App: React.FC = () => {
     const value = e.currentTarget.dataset['story']
 
     if (value) {
-      console.log(value)
       dispatch(setActiveView(value))
     }
   }
@@ -51,6 +50,20 @@ export const App: React.FC = () => {
         })
         .catch((e) => {
           dispatch(setCategoriesFetchingError(e))
+        })
+    }
+  }, [authorized])
+
+  useEffect(() => {
+    if (authorized) {
+      requestJSON('/tutor')
+        .then(data => {
+          console.log(data)
+          // dispatch(fetchCategories(data))
+        })
+        .catch((e) => {
+          console.log(e)
+          // dispatch(setCategoriesFetchingError(e))
         })
     }
   }, [authorized])

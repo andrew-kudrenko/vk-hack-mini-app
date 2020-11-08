@@ -9,7 +9,6 @@ export const SubjectListPanel: React.FC = () => {
     const { jumpToPanel } = useNav()
 
     const onClickHandler = jumpToPanel.bind(null, 'search-view', 'coach-list-panel')
-    console.log(list)
     return (
         <>
             <PanelHeader>Выбрать предмет</PanelHeader>
