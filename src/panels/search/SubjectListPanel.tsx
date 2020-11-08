@@ -1,54 +1,40 @@
 import React from 'react'
-import { PanelHeader, Search, List, Cell, Group, Header } from '@vkontakte/vkui'
-import { useDispatch } from 'react-redux'
-import { setActivePanel } from '../../redux/actions/views.actions'
+import { PanelHeader, Search, List, Cell, Group, Header, PanelSpinner } from '@vkontakte/vkui'
+import { useNav } from '../../hooks/nav.hooks'
+import { connect, useSelector } from 'react-redux'
+import { IState } from '../../interfaces/redux.interfaces'
 
 export const SubjectListPanel: React.FC = () => {
-    const dispatch = useDispatch()
-    
+    const { error, list, loading } = useSelector((state: IState) => state.categories)
+    const { jumpToPanel } = useNav()
+
+    const onClickHandler = jumpToPanel.bind(null, 'search-view', 'coach-list-panel')
+    console.log(list)
     return (
         <>
             <PanelHeader>Выбрать предмет</PanelHeader>
             <Search placeholder="Введите название дисциплины" />
-            <Group header={<Header mode="secondary">Языки</Header>}>
-                <List>
-                    <Cell expandable onClick={dispatch.bind(null, setActivePanel({ 'search-view': 'coach-list-panel'}))}>
-                        Английский язык
-                    </Cell>
-                    <Cell expandable onClick={dispatch.bind(null, setActivePanel({ 'search-view': 'coach-list-panel'}))}>
-                        Немецкий язык
-                    </Cell>
-                    <Cell expandable onClick={dispatch.bind(null, setActivePanel({ 'search-view': 'coach-list-panel'}))}>
-                        Русский язык
-                    </Cell>
-                </List>
-            </Group>
-            <Group header={<Header mode="secondary">Естественные науки</Header>}>
-                <List>
-                <Cell expandable onClick={dispatch.bind(null, setActivePanel({ 'search-view': 'coach-list-panel'}))}>
-                        Физика
-                    </Cell>
-                    <Cell expandable onClick={dispatch.bind(null, setActivePanel({ 'search-view': 'coach-list-panel'}))}>
-                        Химия
-                    </Cell>
-                    <Cell expandable onClick={dispatch.bind(null, setActivePanel({ 'search-view': 'coach-list-panel'}))}>
-                        Биология
-                    </Cell>
-                </List>
-            </Group>
-            <Group header={<Header mode="secondary">Математические дисциплины</Header>}>
-                <List>
-                <Cell expandable onClick={dispatch.bind(null, setActivePanel({ 'search-view': 'coach-list-panel'}))}>
-                        Математика
-                    </Cell>
-                    <Cell expandable onClick={dispatch.bind(null, setActivePanel({ 'search-view': 'coach-list-panel'}))}>
-                        Высшая математика
-                    </Cell>
-                    <Cell expandable onClick={dispatch.bind(null, setActivePanel({ 'search-view': 'coach-list-panel'}))}>
-                        Теория вероятностей и математическая статистика
-                    </Cell>
-                </List>
-            </Group>
+            {
+                loading
+                ? <PanelSpinner />
+                : error
+                    ? error
+                    : list.length && list.map(c => 
+                        <Group key={c.id} header={<Header mode="secondary">{c.title}</Header>}>
+                            <List>
+                                {
+                                    c.categories?.length && c.categories.map(s => 
+                                        <Cell key={s.id} expandable onClick={onClickHandler}>
+                                           {s.title} 
+                                        </Cell>
+                                    )
+                                }
+                            </List>
+                        </Group>            
+                    )
+            }
         </>
     )
 }
+
+export default connect()(SubjectListPanel)

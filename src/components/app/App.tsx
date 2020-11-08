@@ -8,7 +8,7 @@ import { CoachListPanel } from '../../panels/search/CoachListPanel'
 import { RecentPanel } from '../../panels/recent/RecentPanel'
 import { FavoritesPanel } from '../../panels/favorites/FavoritesPanel'
 import { ProfilePanel } from '../../panels/profile/ProfilePanel'
-import { SubjectListPanel } from '../../panels/search/SubjectListPanel'
+import SubjectListPanel from '../../panels/search/SubjectListPanel'
 import { useNav } from '../../hooks/nav.hooks'
 import { LoginPanel } from '../../panels/auth/LoginPanel'
 import { RegisterPanel } from '../../panels/auth/RegisterPanel'
@@ -44,13 +44,15 @@ export const App: React.FC = () => {
   }, [authorized])
 
   useEffect(() => {
-    requestJSON('/categories')
-      .then(data => {
-        dispatch(fetchCategories(data))
-      })
-      .catch((e) => {
-        dispatch(setCategoriesFetchingError(e))
-      })
+    if (authorized) {
+      requestJSON('/categories')
+        .then(data => {
+          dispatch(fetchCategories(data))
+        })
+        .catch((e) => {
+          dispatch(setCategoriesFetchingError(e))
+        })
+    }
   }, [authorized])
 
   useEffect(() => {

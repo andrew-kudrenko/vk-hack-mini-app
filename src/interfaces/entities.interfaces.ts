@@ -47,5 +47,5 @@ export interface ISubject {
 export interface ICategory {
     id: EntityIDType
     title: string
-    subjects: Array<ISubject>
+    categories: Array<ISubject>
 }
