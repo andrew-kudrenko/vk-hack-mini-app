@@ -38,6 +38,11 @@ export const CoachCard: React.FC = () =>
                 />
             </div>
         </div>
+        <div style={{ display: 'flex', flexWrap: 'wrap', padding: '1rem', margin: '-1.5rem 0 -.5rem' }}>
+            <Button style={{ margin: '.25rem' }} mode="overlay_outline">Биология</Button>
+            <Button style={{ margin: '.25rem' }} mode="overlay_outline">Химия</Button>
+            <Button style={{ margin: '.25rem' }} mode="overlay_outline">Физика</Button>
+        </div>
         <Div>
             <img
                 src="https://avatars.mds.yandex.net/get-zen_doc/1860870/pub_5dfe3dc6aad43600aefe80e5_5dfe43461e8e3f00b0e55c67/scale_1200"
