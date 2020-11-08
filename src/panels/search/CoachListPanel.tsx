@@ -43,6 +43,8 @@ export const CoachListPanel: React.FC = () => {
                 )} 
             />
             {snack}
+            <FavoritesSnackbar onActionClick={() => {}} onClose={setSnack.bind(null, null)} />, 
+
         </>
     )
 }

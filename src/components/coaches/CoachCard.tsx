@@ -1,6 +1,6 @@
 import React from 'react'
 import { Card, Title, Text, Button, Counter, Div } from '@vkontakte/vkui'
-import { Icon16MoneyCircle, Icon16Place, Icon16StarCircleFillYellow, Icon16Users, Icon28FavoriteOutline, Icon28Write } from '@vkontakte/icons'
+import { Icon16Favorite, Icon16MoneyCircle, Icon16Place, Icon16Users, Icon28FavoriteOutline, Icon28Write } from '@vkontakte/icons'
 import { ICoachCardProps } from '../../interfaces/components.interfaces'
 
 export const CoachCard: React.FC<ICoachCardProps> = ({ onAddFavorite }) => {
@@ -25,7 +25,7 @@ export const CoachCard: React.FC<ICoachCardProps> = ({ onAddFavorite }) => {
                     />
                     <Button
                         mode="tertiary"
-                        before={<Icon16StarCircleFillYellow />}
+                        before={<Icon16Favorite />}
                         after={<Counter>6.9</Counter>}
                     />
                     <Button
