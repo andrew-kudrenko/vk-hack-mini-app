@@ -1,9 +1,6 @@
 import React, { useState } from 'react'
 import { PanelHeader, PanelHeaderBack, Search } from '@vkontakte/vkui'
 import { CoachCard } from '../../components/coaches/CoachCard'
-import { useDispatch } from 'react-redux'
-import { setActivePanel } from '../../redux/actions/views.actions'
-import { IViewPanelMap, ViewPanelMap } from '../../interfaces/navigation.interfaces'
 import { useNav } from '../../hooks/nav.hooks'
 import { FavoritesSnackbar } from '../../components/favorites/FavoritesSnackbar'
 

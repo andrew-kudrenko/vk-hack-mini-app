@@ -41,9 +41,9 @@ export const CoachCard: React.FC<ICoachCardProps> = ({ onAddFavorite }) => {
                 </div>
             </div>
             <div style={{ display: 'flex', flexWrap: 'wrap', padding: '1rem', margin: '-1.5rem 0 -.5rem' }}>
-                <Button style={{ margin: '.25rem' }} mode="overlay_outline">Биология</Button>
-                <Button style={{ margin: '.25rem' }} mode="overlay_outline">Химия</Button>
-                <Button style={{ margin: '.25rem' }} mode="overlay_outline">Физика</Button>
+                <Button style={{ margin: '.25rem' }} mode="secondary">Биология</Button>
+                <Button style={{ margin: '.25rem' }} mode="secondary">Химия</Button>
+                <Button style={{ margin: '.25rem' }} mode="secondary">Физика</Button>
             </div>
             <Div>
                 <img
